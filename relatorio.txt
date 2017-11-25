@@ -1,0 +1,12 @@
+Relatorio INF1018
+
+Data: 25/11/2017
+
+Francisco Geiman Thiesen 1611854
+Tiago Loriato Simões 1611434
+
+Nesse trabalho foi implementado uma função na linguagem C, cria_func, que, de acordo com as especificações do problema, recebe o endereço de uma função f e uma struct como descrição do conjunto de parâmetros.
+
+A função gera de maneira dinâmica uma nova versão de si mesma e retorna esse valor.
+
+Foi realizado uma bateria de testes   
