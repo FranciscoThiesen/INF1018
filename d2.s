@@ -5,10 +5,8 @@ tmp:
 	pushq %rbp
 	movq  %rsp, %rbp
 
-	movq  $0x1122334455667788, %r9
-	movq  (%r9), %rdi
-
-
+	
+	movq  %rdi, %rdx
 	movq  $0x1122334455667788, %rax
 	call *%rax
 

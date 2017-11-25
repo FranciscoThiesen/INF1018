@@ -21,6 +21,7 @@ void* cria_func (void* f, DescParam params[], int n)
 
 	unsigned long ptr = (unsigned long) f;
 	unsigned long var_ptr, ptr_par;
+	int livre[] = {0, 0, 0};
 	int i = 0;
 
 
@@ -32,10 +33,52 @@ void* cria_func (void* f, DescParam params[], int n)
     //////////////////////////////////////////////////////////////////////
 
 
-	// IPC (Importante pra caralho)
 	// - Tratar a ordem dos parametros
 	// - Esta tudo no quadro
 	// - Bom senso
+	if(n == 2)
+	{
+		if(params[0].orig_val != PARAM && params[1].orig_val == PARAM)
+		{
+			if(params[1].tipo_val == PTR_PAR) ins[i++] = 0x48;
+			ins[i++] = 0x89;
+			ins[i++] = 0xfe;
+		}
+	}
+
+	if(n == 3)
+	{
+		for(int i = 0; i < 3; ++i) livre[i] = (params[i].orig_val == PARAM)? 1 : 0;
+		if(livre[0] && !livre[1] && livre[2])
+		{
+			if(params[2].tipo_val == PTR_PAR) ins[i++] = 0x48;
+			ins[i++] = 0x89;
+			ins[i++] = 0xf2;
+		}
+		else if(!livre[0] && livre[1] && livre[2])
+		{
+			if(params[2].tipo_val == PTR_PAR) ins[i++] = 0x48;
+			ins[i++] = 0x89;
+			ins[i++] = 0xf2;
+			if(params[1].tipo_val == PTR_PAR) ins[i++] = 0x48;
+			ins[i++] = 0x89;
+			ins[i++] = 0xfe;
+		}
+		else if(!livre[0] && livre[1] && !livre[2])
+		{
+			if(params[1].tipo_val == PTR_PAR) ins[i++] = 0x48;
+			ins[i++] = 0x89;
+			ins[i++] = 0xfe;
+		}
+		else if(!livre[0] && !livre[1] && livre[2])
+		{
+			if(params[2].tipo_val == PTR_PAR) ins[i++] = 0x48;
+			ins[i++] = 0x89;
+			ins[i++] = 0xfa;
+		}
+
+	}
+
 	for(int idx = 0; idx < n; ++idx)
 	{
 		if(params[idx].tipo_val == INT_PAR)
@@ -110,6 +153,7 @@ void* cria_func (void* f, DescParam params[], int n)
 			}
 		}
 	}
+	
 
 	////////////////////////// Chamada de funcao //////////////////////////
 	ins[i++] = 0x48;
