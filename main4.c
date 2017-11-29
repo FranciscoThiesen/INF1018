@@ -13,6 +13,7 @@ int main (void) {
   func_ptr f_mult;
   int i;
   int fixo = 42;
+  int* ptr = &fixo;
   params[0].tipo_val = PTR_PAR; /* o segundo parâmetro de mult é int */
   params[0].orig_val = PARAM;     /* a nova função passa para mult a constante 10 */
 

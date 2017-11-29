@@ -13,12 +13,12 @@ int main (void) {
   int i;
 
   params[0].tipo_val = INT_PAR; /* a nova função passa para mult um valor inteiro */
-  params[0].orig_val = IND;     /* que é o valor corrente da variavel i */
-  params[0].valor.v_ptr = &i;
+  params[0].orig_val = FIX;     /* que é o valor corrente da variavel i */
+  params[0].valor.v_int = 10;
 
   params[1].tipo_val = INT_PAR; /* o segundo argumento passado para mult é a constante 10 */
-  params[1].orig_val = FIX;
-  params[1].valor.v_int = 10;
+  params[1].orig_val = IND;
+  params[1].valor.v_ptr = &i;
 
   f_mult = (func_ptr) cria_func (mult, params, 2);
 
